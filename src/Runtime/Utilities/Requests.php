@@ -21,6 +21,7 @@ class Requests
 
 	public static function execute(RequestOptions $options)
 	{
+
         $call = [];
         $call['request'] = $options->toArray();
 

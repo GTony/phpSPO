@@ -2,6 +2,7 @@
 
 
 namespace Office365\PHP\Client\Runtime\OData;
+use MyProject\Proxies\__CG__\stdClass;
 use Office365\PHP\Client\Runtime\Utilities\JsonConvert;
 
 
@@ -47,6 +48,14 @@ class ODataSerializer
     public function deserialize($value,ODataPayload $payload)
     {
         $jsonValue = JsonConvert::deserialize($value);
+
+      /*  if(property_exists($jsonValue,"@odata.deltaLink")){
+           // $array = get_object_vars($jsonValue);
+            $jsonValue->value['deltaLink'] = new \stdClass();
+            $jsonValue->value['deltaLink']->{"@odata.deltaLink"} = $jsonValue->{"@odata.deltaLink"};
+        }*/
+
+        
         if($this->Format instanceof JsonLightFormat){
             if($this->Format->MetadataLevel == ODataMetadataLevel::Verbose){
                 if(property_exists($jsonValue,"d")){
@@ -61,6 +70,7 @@ class ODataSerializer
                     $jsonValue = $jsonValue->value;
                 }
             }
+
         }
         else {
             if($this->Format->MetadataLevel == ODataMetadataLevel::Verbose && property_exists($jsonValue,"value")) {
@@ -68,8 +78,10 @@ class ODataSerializer
             }
         }
 
-        if(isset($payload->EntityName))
+        if(isset($payload->EntityName)){
             $jsonValue = $jsonValue->{$payload->EntityName};
+        }
+
         $payload->convertFromJson($jsonValue);
     }
 

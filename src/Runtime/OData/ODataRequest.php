@@ -152,6 +152,12 @@ class ODataRequest extends ClientRequest
                 $request->Data = $serializer->serialize($query->Payload);
             }
         }
+        if($this->customHeaders){
+            foreach($this->customHeaders as $header => $value){
+                $request->addCustomHeader($header, $value);
+            }
+        }
+        
         return $request;
     }
 

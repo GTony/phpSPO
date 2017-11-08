@@ -37,12 +37,19 @@ abstract class ClientRequest
      */
     protected $resultObjects = array();
 
+
+    /*
+     * @var array
+     */
+    protected $customHeaders;
+
     /**
      * ClientRequest constructor.
      * @param ClientRuntimeContext $context
      */
     public function __construct(ClientRuntimeContext $context)
     {
+        $this->customHeaders = array();
         $this->context = $context;
         $this->eventsList = array(
             "BeforeExecuteQuery" => null,
@@ -126,6 +133,17 @@ abstract class ClientRequest
         $this->context->authenticateRequest($request); //Auth mandatory headers
         $this->setRequestHeaders($request); //set request headers
         return Requests::execute($request);
+    }
+
+    /**
+     * @param $customHeaders
+     */
+    public function setCustomHeaders($header , $value) {
+        $this->customHeaders[$header] = $value;
+    }
+
+    public function getQueries(){
+        return $this->queries;
     }
 
 }
