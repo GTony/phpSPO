@@ -188,7 +188,7 @@ class User extends ClientObject
     {
         if ($this->getContext()->getApiVersion() == Office365Version::V1)
             return "Folders";
-        if ($this->getContext()->getApiVersion() == Office365Version::V2)
+        if ($this->getContext()->getApiVersion() == Office365Version::V2 || $this->getContext()->getApiVersion() == Office365Version::Beta)
             return "MailFolders";
 
         throw new \Exception("Unknown API version '" . $this->getContext()->getApiVersion() . "'");

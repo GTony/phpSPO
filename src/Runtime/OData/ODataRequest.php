@@ -135,6 +135,7 @@ class ODataRequest extends ClientRequest
         if (!is_null($query->QueryOptions)) {
             $resourceUrl .= '?' . $query->QueryOptions->toUrl();
         }
+
         $request = new RequestOptions($resourceUrl);
         if ($query instanceof InvokePostMethodQuery ||
             $query instanceof CreateEntityQuery ||
@@ -157,7 +158,8 @@ class ODataRequest extends ClientRequest
                 $request->addCustomHeader($header, $value);
             }
         }
-        
+
+
         return $request;
     }
 

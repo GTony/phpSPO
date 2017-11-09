@@ -49,13 +49,6 @@ class ODataSerializer
     {
         $jsonValue = JsonConvert::deserialize($value);
 
-      /*  if(property_exists($jsonValue,"@odata.deltaLink")){
-           // $array = get_object_vars($jsonValue);
-            $jsonValue->value['deltaLink'] = new \stdClass();
-            $jsonValue->value['deltaLink']->{"@odata.deltaLink"} = $jsonValue->{"@odata.deltaLink"};
-        }*/
-
-        
         if($this->Format instanceof JsonLightFormat){
             if($this->Format->MetadataLevel == ODataMetadataLevel::Verbose){
                 if(property_exists($jsonValue,"d")){
